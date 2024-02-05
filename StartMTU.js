@@ -1,5 +1,7 @@
+import { setTimeout } from "timers/promises";
 import phidgetsServerConnection from "./PhidgetsServerConnection.js";
 // Creates a Express server in Node JS    
+
 import express from'express';
 const app = express();
 app.use(
@@ -24,7 +26,10 @@ app.listen(port, () => console.log(`MTU Controler is listening on port ${port}!`
         
             next(); 
     }
-    app.get('/InitilizeMTU', InitilizeMTU, (req, res) => {
-        res.status(200).send( );  
+    app.get('/InitilizeMTU', (req, res) => {
+        console.log("Incomming req");
+        setTimeout(() => {
+            res.status(200).send({"text": "Hej MTU :)"});
+    }, 1000);
 
     })
