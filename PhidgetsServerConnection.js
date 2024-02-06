@@ -1,5 +1,6 @@
 // Import FlightSimulator modules 
 import phidget22  from 'phidget22';
+import inititlizeMTUApi from'./InititlizeMTUApi.js';
 
 let serviceConnected = false;
 
@@ -28,7 +29,8 @@ var phidgetsServerConnection = async() => {
 			},
 			onConnect: function() {
 				console.log("Phidgets Networkserver - Connection is established and MTU is ready to work");
-				
+				inititlizeMTUApi.isServiceConnected["isPhidgetsConnected"] = true;
+
 				/* Set the staates in Store
 					initializeStore.dispatch(setConBottonShowable(false));
 					initializeStore.dispatch(setConnected(true));
@@ -54,7 +56,7 @@ var phidgetsServerConnection = async() => {
 			},
 			onDisconnect: function() { 
 				console.log("Phidgets Networkserver - Disconnected");
-				
+				inititlizeMTUApi.isServiceConnected["isPhidgetsConnected"] = false;
 /* 				initializeStore.dispatch(setConnected(false));
 				initializeStore.dispatch(setLabelConButton(generalTexts.conButton["connect"]));  
 				initializeStore.dispatch(setStateName(""));

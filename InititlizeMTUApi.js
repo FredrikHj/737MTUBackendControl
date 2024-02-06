@@ -1,8 +1,7 @@
-
-
-let InititlizeMTUApi = {
-    connectInfo: {
-        ifPhidgetsConnect: false,
-        isFsuipcConnect: false
+const inititlizeMTUApi = {
+    isServiceConnected: {
+        isPhidgetsConnected: false,
+        isFsuipcConnected: false,
     }
 }
+export default inititlizeMTUApi;
