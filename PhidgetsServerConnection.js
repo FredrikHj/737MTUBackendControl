@@ -1,6 +1,8 @@
 // Import FlightSimulator modules 
 import phidget22  from 'phidget22';
-import inititlizeMTUApi from'./InititlizeMTUApi.js';
+import {inititlizeMTUConnectedApi} from'./InititlizeMTUApi.js';
+import initilizeThL1 from'./MTUFunctions/InitilizeThL1.js';
+//import initilizeTest2 from'./MTUFunctions/Test2.js';
 
 let serviceConnected = false;
 
@@ -11,33 +13,37 @@ var phidgetsServerConnection = async() => {
     
     //const conn = new phidget22.NetworkConnection(5661, "localhost"/* 'hub5000.local' */);
 	try {
+		phidget22.Log.enable(phidget22.LogLevel.INFO);
 		var phidgetsConn = new phidget22.NetworkConnection({
-			hostname: "localhost",
+			hostname: 
+			//"localhost"
+			"hub5000.local",
 			port: 5661,
 			name: "Phidget Server Connection",
-			passwd: "",
-			onAuthenticationNeeded: function() { return "password"; },
+			passwd: "", 
+			onAuthenticationNeeded: function() { return "password"; }, 
 			onError: () => {
 				//console.log("Phidgets Networkserver - Connection Error:", msg);
-/* 	
+/* 	 
 				initializeStore.dispatch(setErrorOccured(
 					{
 						isError: true, 
 						errorMessegnes: generalTexts.conStates.phidgets["programError"],
 					}
-				)); */
+				)); */ 
 			},
 			onConnect: function() {
 				console.log("Phidgets Networkserver - Connection is established and MTU is ready to work");
-				inititlizeMTUApi.isServiceConnected["isPhidgetsConnected"] = true;
-
+				inititlizeMTUConnectedApi["isPhidgetsConnected"] = true;
+				initilizeThL1(0, 10000, true);
+				//initilizeTest2(); 
 				/* Set the staates in Store
 					initializeStore.dispatch(setConBottonShowable(false));
 					initializeStore.dispatch(setConnected(true));
 					initializeStore.dispatch(setLabelConButton(generalTexts.conButton["disconnect"]));  
 					initializeStore.dispatch(setStateName(generalTexts.conStates.phidgets.webService["started"]));
 	
-				setTimeout(() => {
+				setTimeout(() => {  b
 						initializeStore.dispatch(setConnectionInfo({
 						dataReceived: true,
 						receivedData: {     
@@ -45,18 +51,18 @@ var phidgetsServerConnection = async() => {
 							port: serviceServerConfig.phidgets["port"],
 							messegnes: generalTexts.conStates.phidgets.webService["started"], 
 							connect: true
-						}
+						}   
 					}));
 				}, 1000);
 				
 				initializeStore.dispatch(setErrorOccured({
-						isError: false,
+						isError: false, 
 				  }
 				)); */
 			},
 			onDisconnect: function() { 
 				console.log("Phidgets Networkserver - Disconnected");
-				inititlizeMTUApi.isServiceConnected["isPhidgetsConnected"] = false;
+				inititlizeMTUConnectedApi["isPhidgetsConnected"] = false;
 /* 				initializeStore.dispatch(setConnected(false));
 				initializeStore.dispatch(setLabelConButton(generalTexts.conButton["connect"]));  
 				initializeStore.dispatch(setStateName(""));
@@ -90,71 +96,6 @@ var phidgetsServerConnection = async() => {
 		setInterval(() => {phidgetsServerConnection();}, 2000);
 		process.exit(1);
 	}
-    
-	
-	/*
-	//Create your Phidget channels
-	const bldcMotor0 = new phidget22.BLDCMotor(); 
-
-	//Set addressing parameters to specify which channel to open (if any)
-	bldcMotor0.deviceSerialNumber = 668208;
-    bldcMotor0.channel = 0;  
-
-	//Assign any event handlers you need before calling open so that no events are missed.
-	bldcMotor0.onAttach = () => {
-		console.log('Attach!');
-	};
- 
-	bldcMotor0.onDetach = () => {
-		console.log('Detach!');
-	};
-
-	bldcMotor0.onError = (code, description) => {
-		console.log('Description: ' + description.toString());
-		console.log('----------');  
-	}; 
-	
-	//Open your Phidgets and wait for attachment
-	try {
-		await bldcMotor0.open(5000);
-	} catch(err) {
-        console.log("Phidgets Networkserver - Connection Error:", err);
-
-		process.exit(1);
-	}
-
-	//Do stuff with your Phidgets here or in your event handlers.
-	try {
-		await bldcMotor0.setTargetVelocity(0.5);
-	} catch(err) {
-		console.error('Error during setTargetVelocity', err);
-		process.exit(1);
-	}
-
-
-	setTimeout(async () => {
-		//Close your any Phidgets and connections once the program is done.
-		await bldcMotor0.close();
-		conn.close();
-		conn.delete();
-	}, 50000);
-    var test = AvailabilityOfFSIPCInstance$;  
-    console.log('test :', test);
-    //Check services connection
-        var initializeStoreState = initializeStore.getState();
-        var isFsuipcConnected = initializeStoreState.serviceFSUIPC["connected"];
-        var isPhidgetsConnected = initializeStoreState.servicePHIDGETS["connected"];
-    
-    // Sett if all services are connected
-    initializeStore.dispatch(setServicesConnected(true));
-
-    console.log("FSUIPC Connnected? - "+ isFsuipcConnected);
-    console.log("Phidgets Connected? - "+ isPhidgetsConnected);
-
-    if(isPhidgetsConnected === true) {
-        console.log("Ready to InitilizeMTUFunctions");
-        BSLControllerTHL1();
-    } */
-	await phidgetsConn.connect().then(() => {})
+    	await phidgetsConn.connect().then(() => {})
 }
 export default phidgetsServerConnection;

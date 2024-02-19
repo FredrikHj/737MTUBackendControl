@@ -1,6 +1,6 @@
 // Import FlightSimulator modules 
 import phidget22  from 'phidget22';
-import inititlizeMTUApi from'./InititlizeMTUApi.js';
+import {inititlizeMTUConnectedApi, readMtuFuncPos} from'./InititlizeMTUApi.js';
 
 import phidgetsServerConnection from "./PhidgetsServerConnection.js";
 // Creates a Express server in Node JS    
@@ -33,6 +33,6 @@ app.listen(port, () => console.log(`MTU Controler is listening on port ${port}!`
         next(); 
     }
 app.get('/InitilizeMTU', InitilizeMTU, (req, res) => {
-    res.status(200).send(inititlizeMTUApi);
+    res.status(200).send({inititlizeMTUConnectedApi, readMtuFuncPos});
 
 })
