@@ -13,7 +13,7 @@ export const mtuValuesApi = {
         setKd: -100.0,
         setDeadBand: 0,
         setAcceleration: 100000,
-        setVelocityLimit: 250,
+        setVelocityLimit: 150,
     },
     thL1_2Rev: {
 

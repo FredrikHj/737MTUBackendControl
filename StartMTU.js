@@ -15,7 +15,7 @@ app.use(
         extended: true
     })
 )
-
+ 
 app.use(express.json());  
  
 // The server information
@@ -27,12 +27,12 @@ app.listen(port, () => console.log(`MTU Controler is listening on port ${port}!`
 
 // Middleware
     let InitilizeMTU = (req, res, next) => { 
-
+ 
                 phidget22.Log.enable(phidget22.LogLevel.INFO);
         
         next(); 
     }
 app.get('/InitilizeMTU', InitilizeMTU, (req, res) => {
-    res.status(200).send({inititlizeMTUConnectedApi, readMtuFuncPos});
+    res.status(200).send(readMtuFuncPos);
 
-})
+})  

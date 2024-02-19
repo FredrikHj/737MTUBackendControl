@@ -53,7 +53,7 @@ var initilizeThL1 = async(positionCurrent, positionTarget, runMotor) => {
 }
 
 let doStuffTryCatch = async(whatToDo, errorMess) => {
-    try {           å
+    try {
         await whatToDo;
     } catch(err) {  
         console.error(`Error in sett ${errorMess} - ` + err);

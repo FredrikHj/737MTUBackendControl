@@ -35,7 +35,7 @@ var phidgetsServerConnection = async() => {
 			onConnect: function() {
 				console.log("Phidgets Networkserver - Connection is established and MTU is ready to work");
 				inititlizeMTUConnectedApi["isPhidgetsConnected"] = true;
-				initilizeThL1(0, 10000, true);
+				initilizeThL1(0, 2500, true); 
 				//initilizeTest2(); 
 				/* Set the staates in Store
 					initializeStore.dispatch(setConBottonShowable(false));
