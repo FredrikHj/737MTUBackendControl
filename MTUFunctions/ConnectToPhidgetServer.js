@@ -1,6 +1,6 @@
 import phidget22 from"phidget22";
 import initilizeThL1 from'./Phidgets/PhidgetsControl/ThrottleFunctions/InitilizeThL1.js';
-import ConnectionApi from"../API/ConnectionApi.js";
+import ConnectionApi from"../../737MTUBackendControl/API/ConnectionApi.js";
 
 var ConnectToPhidgetServer = async() => {
 

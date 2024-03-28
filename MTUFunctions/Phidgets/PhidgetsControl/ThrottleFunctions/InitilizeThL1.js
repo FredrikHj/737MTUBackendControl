@@ -1,8 +1,8 @@
 // Import FlightSimulator modules 
     import phidget22 from "phidget22";
-    import readMtuFuncPos from "../../../../API/MTUFuncPosApi.js";
+    import readMtuFuncPos from "../../../../../737MTUBackendControl/API/MTUFuncPosApi.js";
 
-    import {inititlizeMTUInstances, mtuValuesApi, inititlizeMTUEventsApi} from'../../../../API/InititlizeMTUApi.js';
+    import {inititlizeMTUInstances, mtuValuesApi, inititlizeMTUEventsApi} from'../../../../../737MTUBackendControl/API/InititlizeMTUApi.js';
 import log from "node-gyp/lib/log.js";
 
 var initilizeThL1 = async(positionCurrent, positionTarget, runMotor) => {
