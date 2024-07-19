@@ -30,12 +30,12 @@ var mtuServerInitiation = (instanceType, instance) => {
                     phidget22.Log.enable(phidget22.LogLevel.INFO); 
                 
                 // Give time to the services to start up
-/*                     setTimeout(() => { 
+                     setTimeout(() => { 
                         // Send the connection object 
                         socket.emit("mtuInitiation", ConnectionApi, (response) => {
                             console.log('response :', response);
                         });
-                    }, 1000);  */
+                    }, 1000); 
             }
             viewerAcknowledgements({
                 data: ConnectionApi.backend,

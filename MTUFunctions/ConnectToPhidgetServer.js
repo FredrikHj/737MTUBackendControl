@@ -30,12 +30,12 @@ var PhidgetServerConHandler = (socketInstance) =>{
                 console.log('errorAccurs :', errorAccurs);
             }, 
             onConnect: function() {
-                ConnectionApi.isPhidgetsConnected === false && 
+                ConnectionApi.phidgets.isConnected === false && 
                 console.log("Phidgets Networkserver is connected and MTU is ready to work")
                 
-                ConnectionApi.isPhidgetsConnected = true;
-                ConnectionApi.mtuMess = "MTU Server is Ready to work!"; 
-                ConnectionApi.phidgetServerError = false;
+                ConnectionApi.phidgets.isConnected = true;
+                ConnectionApi.phidgets.serverMess = "Connected"; 
+                ConnectionApi.phidgets.isError = false;
                 
                 // Resend the connection object once to avoid a loop at the client side 
                 console.log('errorAccurs :', errorAccurs);
@@ -84,7 +84,7 @@ var PhidgetServerConHandler = (socketInstance) =>{
                 
                 // Sett if all nonen of the services are disconnected
                 initializeStore.dispatch(setServicesConnected(false));
-                
+                 
                 setTimeout(() => {
                     initializeStore.dispatch(setConnectionInfo({
                         dataReceived: false,
@@ -102,8 +102,8 @@ var PhidgetServerConHandler = (socketInstance) =>{
             }
         })
         //-------------------------------------------------------
-        if(ConnectionApi.isPhidgetsConnected === false){ 
-            try { 
+        //f(ConnectionApi.isPhidgetsConnected === false){ 
+           try { 
                 return await phidgetsConn.connect().then(() => {})
             } catch(err) {
                 console.log("Phidgets Networkserver - Connection Error:");
@@ -114,7 +114,7 @@ var PhidgetServerConHandler = (socketInstance) =>{
                     ConnectionApi.phidgetServerError = true;
                 }, 2000); 
             } 
-        }
+        //}
     }
     connectToPhidgetServer(socketInstance);
 }   
