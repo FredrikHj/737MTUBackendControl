@@ -1,4 +1,4 @@
-export const readMtuFuncPos = {
+const PositionsApi = {
     engine1CutOff: 0,
     engine2CutOff: 0,
     thL1: 0,
@@ -9,4 +9,5 @@ export const readMtuFuncPos = {
     speedBrake: 0,
     parkingBrake: 0,
 }
-export default readMtuFuncPos;
+
+export default PositionsApi;

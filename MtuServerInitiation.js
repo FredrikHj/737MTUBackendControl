@@ -1,48 +1,41 @@
 // Import FlightSimulator modules 
 import phidget22 from 'phidget22';
-import {readMtuFuncPos} from'./API/MTUFuncPosApi.js';
+import PositionsApi from'./API/Phidgets/PositionsApi.js';
 import PhidgetServerConHandler from"./MTUFunctions/ConnectToPhidgetServer.js";
 import ConnectionApi from"./API/ConnectionApi.js";
+import log from 'node-gyp/lib/log.js';
+var acknowledgementsDone = false; 
+   
+var mtuServerInitiation = (socketIOInstance) => { 
+    // Initilize the Phidgets server connection
+        PhidgetServerConHandler(socketIOInstance);
+     
+    // Socket.IO start the connection and begins to listen for a client
+    socketIOInstance.on("connection", (socket) => {
+       console.log('Socket has connect: ', socket.connected);               
 
-var mtuServerInitiation = (instanceType, instance) => {
-    // Socket.IO start the connection
-    instance.on("connection", socket => {
-        socket.emit("mtuInitiation", ConnectionApi, (response) => {
-            console.log('Viewer Response :', response);
-        });
+       socket.emit("mtuInitiation", ConnectionApi, (response) => {
+            console.log(`MTU Server has done a request to client and got the Response of: ${response.status}`);
+                console.log(`They are now connected with ID of: ${socket.id}`);
 
-        socket.on("mtuInitiation", (connected, viewerAcknowledgements) => {
-            
-            
-            ConnectionApi.backend["serverMess"] = "Conected";
-            
-            if(instanceType === "start" && connected === true){
-                console.log(`MTU viewer is connected with ID: ${socket.id}`);
-                console.log("-----------------------------------------------------");
-                console.log("Connection request from the MTU Viewer. Connected? ", connected);
-                
-                //console.log(`MTU Server and Client has reconnected with a new Connection ID: ${socket.id}`);
-                
-                // Initilize the server Client connection and begin Sending events to the listerner client
-                    PhidgetServerConHandler(instance);
-                    
-                // Enable Log
+                if(response.status === 200){
+                    ConnectionApi.frontend["isConnected"] = true;
+                    ConnectionApi.frontend["clientMess"] = "connected";
+
+                    console.log("-----------------------------------------------------");
+                    console.log("ConnectionApi: ", ConnectionApi.backend["isConnected"]); 
+                    //console.log(`MTU Server and Client has reconnected with a new Connection ID: ${socket.id}`);
+                                     
+                    // Enable Log   
                     phidget22.Log.enable(phidget22.LogLevel.INFO); 
-                
-                // Give time to the services to start up
-                     setTimeout(() => { 
-                        // Send the connection object 
-                        socket.emit("mtuInitiation", ConnectionApi, (response) => {
-                            console.log('response :', response);
-                        });
-                    }, 1000); 
-            }
-            viewerAcknowledgements({
-                data: ConnectionApi.backend,
-                status: 200,
-            });
-        })
-    });        
-}
+                }
+             
+        });   
+        socket.on("disconnect", (reason) => {
+            ConnectionApi.frontend["isConnected"] = false;
+            console.log(`Socket are connect: ', ${socket.connected} and the reason is: ${reason}`);
+        });
+    });
+} 
 
-export default mtuServerInitiation;
+export default mtuServerInitiation; 

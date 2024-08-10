@@ -1,13 +1,18 @@
 // Import FlightSimulator modules 
     import phidget22 from "phidget22";
-    import readMtuFuncPos from "../../../../../737MTUBackendControl/API/MTUFuncPosApi.js";
+    import readMtuFuncPos from "../../../../API/Phidgets/PositionsApi.js";
 
-    import {inititlizeMTUInstances, mtuValuesApi, inititlizeMTUEventsApi} from'../../../../../737MTUBackendControl/API/InititlizeMTUApi.js';
+    import ControllerInstancesApi from'../../../../API/Phidgets/ControllerInstancesApi.js';
+    import ControllerValuesApi from'../../../../API/Phidgets/ControllerValuesApi.js';
+    import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/MotorControllerEventsTh1_2Api.js';
+    import {Th1Lever} from"../../../FlightSimSettings/Throttle1.js";
+    import PhidgetServerConHandler from"../../../ConnectToPhidgetServer.js";
+
 import log from "node-gyp/lib/log.js";
 
-var initilizeThL1 = async(positionCurrent, positionTarget, runMotor) => {
+var initilizeThL1 = async(socketInstance, positionCurrent, positionTarget, runMotor) => {
     // Initilize Functions classes from the API
-        const motorPositionController = inititlizeMTUInstances.thL1_2["motorPositionController"]();
+        const motorPositionController = ControllerInstancesApi.thL1_2["motorPositionController"]();
 
     //Set addressing parameters to specify which channel to open (if any)
         motorPositionController.setDeviceSerialNumber(668208);
@@ -15,39 +20,40 @@ var initilizeThL1 = async(positionCurrent, positionTarget, runMotor) => {
         motorPositionController.setHubPort(0);
 
     //Assign any event handlers you need before calling open so that no events are missed.   
-        inititlizeMTUEventsApi["onAttach"](motorPositionController);
-        inititlizeMTUEventsApi["onDetach"](motorPositionController);
-        inititlizeMTUEventsApi["onError"](motorPositionController);
+        MotorControllerEventsTh1_2Api["onAttach"](motorPositionController);
+        MotorControllerEventsTh1_2Api["onDetach"](motorPositionController);
+        MotorControllerEventsTh1_2Api["onError"](motorPositionController);
 
         try { 
             //Open your Phidgets and wait for attachment
-                await motorPositionController.open(5000);              
-        } catch(err) {
+                await motorPositionController.open(5000);               
+        } catch(err) { 
             console.log("Phidgets Networkserver - Channel open error:" + err);
-            initilizeThL1();
+            initilizeThL1(socketInstance, Th1Lever["positionCurrent"], Th1Lever["positionTarget"], Th1Lever["runMotor"]);
             //process.exit(1);
         }  
              
         //Do stuff with your Phidgets here or in your event handlers.
-            doStuffTryCatch(motorPositionController.setKp(mtuValuesApi.thL1_2["setKp"]), "setKp");
-            doStuffTryCatch(motorPositionController.setKi(mtuValuesApi.thL1_2["setKi"]), "setKi"); 
-            doStuffTryCatch(motorPositionController.setKd(mtuValuesApi.thL1_2["setKd"]), "setKd");
-            doStuffTryCatch(motorPositionController.setDeadBand(mtuValuesApi.thL1_2["setDeadBand"]), "setDeadBand")
-            doStuffTryCatch(motorPositionController.setAcceleration(mtuValuesApi.thL1_2["setAcceleration"]), "setAcceleration")
-            doStuffTryCatch(motorPositionController.setVelocityLimit(mtuValuesApi.thL1_2["setVelocityLimit"]), "setTargetPosition")
-            doStuffTryCatch(motorPositionController.setTargetPosition(positionTarget), "setTargetPosition")
-            doStuffTryCatch(motorPositionController.setEngaged(runMotor), "setEngaged")
+            doStuffTryCatch(motorPositionController.setKp(ControllerValuesApi.thL1_2["setKp"]), "setKp", socketInstance);
+            doStuffTryCatch(motorPositionController.setKi(ControllerValuesApi.thL1_2["setKi"]), "setKi", socketInstance); 
+            doStuffTryCatch(motorPositionController.setKd(ControllerValuesApi.thL1_2["setKd"]), "setKd", socketInstance);
+            doStuffTryCatch(motorPositionController.setDeadBand(ControllerValuesApi.thL1_2["setDeadBand"]), "setDeadBand", socketInstance)
+            doStuffTryCatch(motorPositionController.setAcceleration(ControllerValuesApi.thL1_2["setAcceleration"]), "setAcceleration", socketInstance)
+            doStuffTryCatch(motorPositionController.setVelocityLimit(ControllerValuesApi.thL1_2["setVelocityLimit"]), "setTargetPosition", socketInstance)
+            doStuffTryCatch(motorPositionController.setTargetPosition(positionTarget), "setTargetPosition", socketInstance)
+            doStuffTryCatch(motorPositionController.setEngaged(runMotor), "setEngaged", socketInstance)
        
         //Do something with the positions value
-            inititlizeMTUEventsApi["onPositionChange"](motorPositionController);              
-
+            MotorControllerEventsTh1_2Api["onPositionChange"]("ThL1", socketInstance, motorPositionController);              
 }
 
-let doStuffTryCatch = async(whatToDo, errorMess) => {
+let doStuffTryCatch = async(whatToDo, errorMess, instance) => {
     try {
         await whatToDo;
     } catch(err) {  
         console.error(`Error in sett ${errorMess} - ` + err);
+        // restart the server
+        errorMess === "setEngaged" && PhidgetServerConHandler.connectToPhidgetServer(instance);
     }
 }
-export default initilizeThL1;
+export default initilizeThL1; 
