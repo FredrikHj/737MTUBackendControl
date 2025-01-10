@@ -12,7 +12,7 @@ const clientSideEmotionCache = createEmotionCache();
 //Redux Store
 import { Provider } from "react-redux";
 //import withReduxStore from '../../renderer/lib/ReduxNextron';
-import {initializeStore} from '../store';
+import {initializeStore} from '../_reduxStore/CommonStore';
 //import LayoutPage from '../Layout';
 type MyAppProps = AppProps & {
     emotionCache?: EmotionCache;

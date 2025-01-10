@@ -11,7 +11,7 @@ var mtuServerInitiation = (socketIOInstance) => {
         PhidgetServerConHandler(socketIOInstance);
      
     // Socket.IO start the connection and begins to listen for a client
-    socketIOInstance.on("connection", (socket) => {
+/*     socketIOInstance.on("connection", (socket) => {
        console.log('Socket has connect: ', socket.connected);               
 
        socket.emit("mtuInitiation", ConnectionApi, (response) => {
@@ -21,6 +21,7 @@ var mtuServerInitiation = (socketIOInstance) => {
                 if(response.status === 200){
                     ConnectionApi.frontend["isConnected"] = true;
                     ConnectionApi.frontend["clientMess"] = "connected";
+                    ConnectionApi.backend["serverClientConId"] = socket.id;
 
                     console.log("-----------------------------------------------------");
                     console.log("ConnectionApi: ", ConnectionApi.backend["isConnected"]); 
@@ -36,6 +37,6 @@ var mtuServerInitiation = (socketIOInstance) => {
             console.log(`Socket are connect: ', ${socket.connected} and the reason is: ${reason}`);
         });
     });
-} 
+ */} 
 
 export default mtuServerInitiation; 

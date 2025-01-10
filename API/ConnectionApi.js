@@ -6,6 +6,7 @@ let  ConnectionApi = {
         isError: false,
         log: "",
         serverAcknowledgements: 200,
+        serverClientConId: "",
     },
     frontend: {
         clientMess: "disconnected",
