@@ -1,5 +1,5 @@
 // Import FlightSimulator modules 
-import ConnectionApi from "../ConnectionApi.js"
+import MtuConApi from "../MtuConApi.js"
 
 const MotorControllerEventsTh1_2Api = {
     onAttach: (instance) => {
@@ -16,7 +16,7 @@ const MotorControllerEventsTh1_2Api = {
         return phidgetsInstance.onPositionChange = function(position) {
             console.log("Position: " + position);
             // If the client is connected
-            ConnectionApi.frontend["isConnected"] === true &&
+            MtuConApi.frontend["isConnected"] === true &&
                 socketInstance.emit("motorControllerThL1", `Update ${whichTHL}`, {update: whichTHL, status: 200, possCurrent: position}, (response) => {
                     response.status === 200 && console.log("Value updates for Throttle 1 is in progress!");
                 });

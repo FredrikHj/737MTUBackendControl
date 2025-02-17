@@ -1,7 +1,7 @@
 // ConnectioAPI to be sent for frontend later
-let  ConnectionApi = {
+let  MtuConApi = {
     backend: {
-        serverMess: "Connected",
+        serverMess: "Connected", //Showing that the MTUServer is conncected in the MTUViewer
         isConnected: true,
         isError: false,
         log: "",
@@ -13,14 +13,15 @@ let  ConnectionApi = {
         isConnected: false,
     },
     phidgets: {
-        serverHostname: "hub5000.local",
-        serverPort: 5661, 
-        serverName: "Phidget Server Connection",
-        serverMess: "",
+        serverHostname: "localhost",
         isConnected: false,
         isError: false,
+        serverMess: "",
+        serverPort: 5661, 
+
         conLost: false,
         conLostMess: "",
+
         log: "",
         status: 0
     },
@@ -35,4 +36,4 @@ let  ConnectionApi = {
     }
 };
    
-export default ConnectionApi;
+export default MtuConApi;

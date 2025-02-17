@@ -13,8 +13,8 @@ var InitilizeMTUFunction = () => {
     console.log('test :', test);
     //Check services connection
         var initializeStoreState = initializeStore.getState();
-        var isFsuipcConnected = initializeStoreState.serviceFSUIPC["connected"];
-        var isPhidgetsConnected = initializeStoreState.servicePHIDGETS["connected"];
+        var isFsuipcConnected = initializeStoreState.conStatusServiceFSUIPC["connected"];
+        var isPhidgetsConnected = initializeStoreState.conStatusServicePHIDGETS["connected"];
     
     // Sett if all services are connected
     initializeStore.dispatch(setServicesConnected(true));

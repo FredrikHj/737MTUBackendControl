@@ -1,6 +1,8 @@
 // Creates a Socket.IO server for Node JS for the controlment for the MTU Unit 
 import { Server } from "socket.io";
-import mtuServerInitiation from'./MtuServerInitiation.js';
+import InitiateConMtuViwer from'./InitiateConMtuViwer.js';
+import PhidgetServerConHandler from"./Functions/Phidgets/ConnectToPhidgetServer.js";
+
 const port = 3001;
 const io = new Server(port, {    
     cors: { 
@@ -10,6 +12,11 @@ const io = new Server(port, {
     }
 });   
 console.log(`MTU Server is started on port nr: ${port} and waiting for MTU viewer connection!`);
-console.log("-------------------------------------------------------------------------------");
+// Request the Phidgets server connection
+    console.log("Request connection for Phidgets Server");
 
-mtuServerInitiation(io);
+    PhidgetServerConHandler(io);
+    
+    // Initiate connection for MtuViwer
+    InitiateConMtuViwer(io);
+console.log("-------------------------------------------------------------------------------");

@@ -1,18 +1,15 @@
 // Import FlightSimulator modules 
-    import phidget22 from "phidget22";
-    import readMtuFuncPos from "../../../../API/Phidgets/PositionsApi.js";
+    //import readMtuFuncPos from "../../../../API/Phidgets/PositionsApi.js";
 
-    import ControllerInstancesApi from'../../../../API/Phidgets/ControllerInstancesApi.js';
-    import ControllerValuesApi from'../../../../API/Phidgets/ControllerValuesApi.js';
-    import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/MotorControllerEventsTh1_2Api.js';
-    import {Th1Lever} from"../../../FlightSimSettings/Throttle1.js";
-    import PhidgetServerConHandler from"../../../ConnectToPhidgetServer.js";
+import CenterLeversInstances from'../../../PhidgetsControl/CenterLevers/CenterLeversInstances.ts';
+//import ControllerValuesApi from'../../../../API/Phidgets/ControllerValuesApi.js';
+//import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/MotorControllerEventsTh1_2Api.js';
+//import {Th1Lever} from"../ThrottleUnit1.js";
+//import PhidgetServerConHandler from"../../../ConnectToPhidgetServer.js";
 
-import log from "node-gyp/lib/log.js";
-
-var initilizeThL1 = async(socketInstance, positionCurrent, positionTarget, runMotor) => {
-    // Initilize Functions classes from the API
-        const motorPositionController = ControllerInstancesApi.thL1_2["motorPositionController"]();
+var initilateThL1 = async(socketInstance, positionCurrent, positionTarget, runMotor) => {
+    // Initilate functions classes from the API
+        const motorPositionController = CenterLeversInstances.thL1_2["motorPositionController"]();
 
     //Set addressing parameters to specify which channel to open (if any)
         motorPositionController.setDeviceSerialNumber(668208);
@@ -56,4 +53,4 @@ let doStuffTryCatch = async(whatToDo, errorMess, instance) => {
         errorMess === "setEngaged" && PhidgetServerConHandler.connectToPhidgetServer(instance);
     }
 }
-export default initilizeThL1; 
+export default initilateThL1; 
