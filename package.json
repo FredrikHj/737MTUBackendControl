@@ -13,7 +13,9 @@
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "fsuipc": "^0.7.3",
     "node-gyp": "^10.1.0",
+    "node-gyp-build": "^4.8.4",
     "phidget22": "^3.19.1",
     "socket.io": "^4.7.5"
   }

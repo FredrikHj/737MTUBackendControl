@@ -1,9 +1,10 @@
 // Import FlightSimulator modules 
     //import readMtuFuncPos from "../../../../API/Phidgets/PositionsApi.js";
 
-import CenterLeversInstances from'../../../PhidgetsControl/CenterLevers/CenterLeversInstances.ts';
-//import ControllerValuesApi from'../../../../API/Phidgets/ControllerValuesApi.js';
-//import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/MotorControllerEventsTh1_2Api.js';
+import CenterLeversInstances from'../CenterLeversInstances.js';
+
+import ControllerValuesApi from'../../../../../API/Phidgets/DeviceControllingValuesApi.js';
+import MotorControllerEventsTh1_2Api from'../../../../../API/Phidgets/MotorControllingEventsApi.js';
 //import {Th1Lever} from"../ThrottleUnit1.js";
 //import PhidgetServerConHandler from"../../../ConnectToPhidgetServer.js";
 

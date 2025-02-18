@@ -1,7 +1,7 @@
 // Import FlightSimulator modules 
 import MtuConApi from "../MtuConApi.js"
 
-const MotorControllerEventsTh1_2Api = {
+const MotorControllingEventsApi = {
     onAttach: (instance) => {
         return instance.onAttach  = () => {
             console.log(instance + 'is onAttach !');
@@ -30,4 +30,4 @@ const MotorControllerEventsTh1_2Api = {
         };
     },    
 }  
-export default MotorControllerEventsTh1_2Api;
+export default MotorControllingEventsApi;
