@@ -74,6 +74,7 @@ var PhidgetServerConHandler = (socketInstance) =>{
                 //connectToPhidgetServer(socketInstance);0
             },
         })
+        console.log(phidgetsConn);
         //-------------------------------------------------------
         try { 
             return await phidgetsConn.connect().then(() => {})

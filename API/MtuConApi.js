@@ -13,7 +13,7 @@ let  MtuConApi = {
         isConnected: false,
     },
     phidgets: {
-        serverHostname: "localhost",
+        serverHostname: "localhost",        
         isConnected: false,
         isError: false,
         serverMess: "",
