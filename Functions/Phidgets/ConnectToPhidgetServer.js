@@ -23,7 +23,7 @@ var PhidgetServerConHandler = (socketInstance) =>{
                 MtuConApi.phidgets["isConnected"] = true;
                 MtuConApi.phidgets["serverMess"] = "Connected"; 
                 MtuConApi.phidgets["isError"] = false;
-                console.log('MtuConApi.phidgets to be send :', MtuConApi.phidgets);
+                //console.log('MtuConApi.phidgets to be send :', MtuConApi.phidgets);
                 console.log('Phidgets Is connected? ', MtuConApi.phidgets["isConnected"]);
                 
                 // Not running if Phidgets is not connected
@@ -74,7 +74,6 @@ var PhidgetServerConHandler = (socketInstance) =>{
                 //connectToPhidgetServer(socketInstance);0
             },
         })
-        console.log(phidgetsConn);
         //-------------------------------------------------------
         try { 
             return await phidgetsConn.connect().then(() => {})

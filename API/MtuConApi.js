@@ -1,6 +1,8 @@
 // ConnectioAPI to be sent for frontend later
 let  MtuConApi = {
     backend: {
+        serverAddress: "localhost",
+        port: 3001,
         serverMess: "Connected", //Showing that the MTUServer is conncected in the MTUViewer
         isConnected: true,
         isError: false,
@@ -18,7 +20,6 @@ let  MtuConApi = {
         isError: false,
         serverMess: "",
         serverPort: 5661, 
-
         conLost: false,
         conLostMess: "",
 

@@ -1,4 +1,4 @@
-import initilateThL1 from'./CenterLevers/Th1_2/InitilizeThL1.js';
+ import initilateThL1 from'./CenterLevers/Th1_2/InitilizeThL1.js';
 import MtuConApi from "../../../API/MtuConApi.js";
 
 var HeadController = () => {
