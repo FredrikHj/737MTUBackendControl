@@ -15,7 +15,7 @@ let  MtuConApi = {
         isConnected: false,
     },
     phidgets: {
-        serverHostname: "localhost",        
+        serverHostname: "fredrikhjipnr.freddansitaccess.se",        
         isConnected: false,
         isError: false,
         serverMess: "",
