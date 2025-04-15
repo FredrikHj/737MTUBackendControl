@@ -1,10 +1,13 @@
 import phidget22, { InputMode } from"phidget22";
-import MtuConApi from"../../API/MtuConApi.js";
+import ApiToBeSend from"../../API/ApiToSend.js";
 import HeadController from"./PhidgetsControl/HeadController.js";
+import boardControllValues from"../Phidgets/PhidgetsControl/BoardControllValues.js";
 
 // Show the quantity of accurs errors
     var errorAccurs = 0;
 
+// API To Phidgets
+    var apiToPhidgets = ApiToBeSend.MTUConParts.phidgets;
 var PhidgetServerConHandler = (socketInstance) =>{
     console.log('PhidgetServer Connection Handler is started!');
     
@@ -12,28 +15,28 @@ var PhidgetServerConHandler = (socketInstance) =>{
         console.log('errorAccurs :', errorAccurs); 
 
         var phidgetsConn = new phidget22.NetworkConnection({
-            hostname: MtuConApi.phidgets["serverHostname"],
-            port: MtuConApi.phidgets["serverPort"],
-            name: MtuConApi.phidgets["serverName"],  
+            hostname: apiToPhidgets["serverHostname"],
+            port: apiToPhidgets["serverPort"],
+            name: apiToPhidgets["serverName"],  
             passwd: "",
             onAuthenticationNeeded: function() { return "password"; },
             onConnect: function() {
-                MtuConApi.phidgets["isConnected"] === false && console.log("Phidgets Networkserver is connected and MTU is ready to work")
+                apiToPhidgets["isConnected"] === false && console.log("Phidgets Networkserver is connected and MTU is ready to work")
                 
-                MtuConApi.phidgets["isConnected"] = true;
-                MtuConApi.phidgets["serverMess"] = "Connected"; 
-                MtuConApi.phidgets["isError"] = false;
-                //console.log('MtuConApi.phidgets to be send :', MtuConApi.phidgets);
-                console.log('Phidgets Is connected? ', MtuConApi.phidgets["isConnected"]);
+                apiToPhidgets["isConnected"] = true;
+                apiToPhidgets["serverMess"] = "Connected"; 
+                apiToPhidgets["isError"] = false;
+                //console.log('apiToPhidgets to be send :', apiToPhidgets);
+                console.log('Phidgets Is connected? ', apiToPhidgets["isConnected"]);
                 
                 // Not running if Phidgets is not connected
-                MtuConApi.phidgets["isConnected"] === true &&
+                apiToPhidgets["isConnected"] === true &&
                     // Initiates the MTU controllers    
-                        HeadController(instance);
+                        HeadController(instance, boardControllValues);
 
-                    instance.emit("mtuInitiation", MtuConApi, (response) => { 
+                   /*  instance.emit("mtuInitiation", ApiToBeSend, (response) => { 
                         console.log('response :', response);
-                    })
+                    }) */
                  // Resend the connection object once to avoid a loop at the client side 
                 //console.log('errorAccurs :', errorAccurs);
                  
@@ -46,28 +49,28 @@ var PhidgetServerConHandler = (socketInstance) =>{
             onDisconnect: function() { 
                 console.log("Phidgets Networkserver - Disconnected");
                 /*
-                MtuConApi.phidgets["isConnected"] = false;
-                MtuConApi.phidgets["serverMess"] = "Disconnected!";
-                MtuConApi.phidgets["isError"] = true;
+                apiToPhidgets["isConnected"] = false;
+                apiToPhidgets["serverMess"] = "Disconnected!";
+                apiToPhidgets["isError"] = true;
  */
                 // Resend a message to client 
             },
             onError: () => {
                 errorAccurs++; 
                 console.log("Phidgets Networkserver has an error");
-                MtuConApi.phidgets["serverMess"] = "Not Connected"; 
-                MtuConApi.phidgets["conLostMess"] = "Connection error - Retrying";
+                apiToPhidgets["serverMess"] = "Not Connected"; 
+                apiToPhidgets["conLostMess"] = "Connection error - Retrying";
 
-                MtuConApi.phidgets["isConnected"] = false;
-                MtuConApi.phidgets["isError"] = true;
-                console.log('Phidgets Is connected? ', MtuConApi.phidgets["isConnected"]);
+                apiToPhidgets["isConnected"] = false;
+                apiToPhidgets["isError"] = true;
+                console.log('Phidgets Is connected? ', apiToPhidgets["isConnected"]);
                 
                 // Resend the connection object once to avoid a loop at the client side 
-                errorAccurs === 1 && instance.emit("mtuInit", MtuConApi);
+                errorAccurs === 1 && instance.emit("mtuInit",  apiToPhidgets);
                 console.log('errorAccurs :', errorAccurs);
 
-                MtuConApi.phidgets["isConnected"] === false &&
-                    instance.emit("mtuInitiation", MtuConApi, (response) => { 
+                apiToPhidgets["isConnected"] === false &&
+                    instance.emit("mtuInitiation", ApiToBeSend, (response) => { 
                         console.log('response :', response);
                     })
                 // restart the server
@@ -79,16 +82,16 @@ var PhidgetServerConHandler = (socketInstance) =>{
             return await phidgetsConn.connect().then(() => {})
         } catch(err) {
             //process.exit(1);
-            MtuConApi.phidgets["isConnected"] = false;
+            apiToPhidgets["isConnected"] = false;
             console.log(`Phidgets Server is not Connected --> Retrying to connnect`);
-            MtuConApi.phidgets["isError"] = true;
-            MtuConApi.phidgets["serverMess"] = "Not Connected";
+            apiToPhidgets["isError"] = true;
+            apiToPhidgets["serverMess"] = "Not Connected";
  
-            MtuConApi.phidgets["conLost"] = true;
+            apiToPhidgets["conLost"] = true;
              console.log("Phidgets Networkserver - Disconnected");
              setTimeout(() => {
-                MtuConApi.phidgets["conLostMess"] = "Internal Error: Retrying to connnect";
-                   instance.emit("mtuInitiation", MtuConApi, (response) => { 
+                apiToPhidgets["conLostMess"] = "Internal Error: Retrying to connnect";
+                   instance.emit("mtuInitiation",  ApiToBeSend, (response) => { 
                     console.log('response :', response);
                 })
                 connectToPhidgetServer(socketInstance);
@@ -98,9 +101,9 @@ var PhidgetServerConHandler = (socketInstance) =>{
         }  
     }
     /* 
-    console.log('Before Ttimeout MtuConApi to send for client: ', MtuConApi);
+    console.log('Before Ttimeout objectPathConCombinedAPI to send for client: ', objectPathConCombinedAPI);
     setTimeout(() => {
-        console.log('After TimeOut MtuConApi to send for client: ', MtuConApi);
+        console.log('After TimeOut objectPathConCombinedAPI to send for client: ', objectPathConCombinedAPI);
         }, 2000);  */
         connectToPhidgetServer(socketInstance);
         //return MtuConApi.backend["isConnected"]

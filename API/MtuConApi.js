@@ -22,7 +22,6 @@ let  MtuConApi = {
         serverPort: 5661, 
         conLost: false,
         conLostMess: "",
-
         log: "",
         status: 0
     },

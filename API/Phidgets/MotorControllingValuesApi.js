@@ -1,4 +1,4 @@
-const ControllerValuesApi = {
+const motorControllingValuesApi = {
     enginesCutOff: {
 
     },
@@ -24,4 +24,4 @@ const ControllerValuesApi = {
     },
 }
 
-export default ControllerValuesApi;
+export default motorControllingValuesApi;
