@@ -1,10 +1,11 @@
 // ConnectioAPI for PhidgetsConApi be 
 let PhidgetsConApi = {
     rowHeadLines: [ 
-        "Board Info:", "Device Spec:", 
+        "Status:", "Connection Spec", "Connnected Device Settings:", 
         {
-            boardInfo: ["Board Name", "Connection State"],
-            deviceSpec: [ "Into Device", "Serial", "Device Port", "Channel"],
+            boardInfo: ["Board Name", "Connection State", "Into Device"],
+            genDeviceSpec: ["Serial", "Device Port", "Channel"],
+            conDeviceSettings: ["Kp", "Ki", "Kd", "DeadBand", "Acceleration", "VelocityLimit"],
         },
     ],
     pBController: {
@@ -17,7 +18,13 @@ let PhidgetsConApi = {
         intoDevice: "",
         deviceSerialNr: 0,
         deviceHubPort: 0,
-        deviceChannel: 0
+        deviceChannel: 0,
+        kp: 0,
+        ki: 0, 
+        kd: 0,
+        deadBand: 0,
+        acceleration: 0,
+        velocityLimit: 0,
     },
     sBController: {
         boardName: "Speed Brake",
@@ -29,7 +36,13 @@ let PhidgetsConApi = {
         deviceName: "",
         deviceSerialNr: 0,
         devicePort: 0,
-        deviceChannel: 0
+        deviceChannel: 0,
+        kp: 0,
+        ki: 0, 
+        kd: 0,
+        deadBand: 0,
+        acceleration: 0,
+        VelocityLimit: 0,
     },
     centerLevers: {
         tH1Controller: {
@@ -42,7 +55,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },
         rev1Controller: {
             boardName: "Thottle 1 - Reverser",
@@ -54,7 +73,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },
         eng1Controller: {
             boardName: "Engine 1 - Start",
@@ -66,7 +91,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },    
         tH2Controller: {
             boardName: "Thottle 2 - Lever",
@@ -78,7 +109,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },
         rev2Controller: {
             boardName: "Thottle 2 - Reverser",
@@ -90,7 +127,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },
         eng2Controller: {
             boardName: "Engine 2 - Start",
@@ -102,7 +145,13 @@ let PhidgetsConApi = {
             deviceName: "",
             deviceSerialNr: 0,
             devicePort: 0,
-            deviceChannel: 0
+            deviceChannel: 0,
+            kp: 0,
+            ki: 0, 
+            kd: 0,
+            deadBand: 0,
+            acceleration: 0,
+            VelocityLimit: 0,
         },
     },
     flapsController: {
@@ -115,7 +164,13 @@ let PhidgetsConApi = {
         deviceName: "",
         deviceSerialNr: 0,
         devicePort: 0,
-        deviceChannel: 0
+        deviceChannel: 0,
+        kp: 0,
+        ki: 0, 
+        kd: 0,
+        deadBand: 0,
+        acceleration: 0,
+        VelocityLimit: 0,
     },
     digitalInputController: {
         boardName: "",
@@ -127,7 +182,7 @@ let PhidgetsConApi = {
         deviceName: "",
         deviceSerialNr: 0,
         devicePort: 0,
-        deviceChannel: 0
+        deviceChannel: 0,
     },
 };
    

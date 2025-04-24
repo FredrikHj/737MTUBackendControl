@@ -40,6 +40,22 @@ var initPBController = async(socketInstance, positionCurrent, positionTarget, ru
         apiPath["deviceHubPort"] = deviceHubPort;
         apiPath["deviceChannel"] = deviceChannel;
 
+        const valueKp = motorControllingValuesApi.thL1_2["setKp"];
+        const valueKi = motorControllingValuesApi.thL1_2["setKi"];
+        console.log('motorControllingValuesApi :', motorControllingValuesApi.thL1_2["setKi"]);
+        const valueKd = motorControllingValuesApi.thL1_2["setKd"];
+        const valueDeadBand = motorControllingValuesApi.thL1_2["setDeadBand"];
+        const valueAcceleration = motorControllingValuesApi.thL1_2["setAcceleration"]
+        const valueVelocityLimit = motorControllingValuesApi.thL1_2["setVelocityLimit"];           
+
+        apiPath["kp"] = valueKp;
+        apiPath["ki"] = valueKi;
+        apiPath["kd"] = valueKd;
+        apiPath["deadBand"] = valueDeadBand;
+        apiPath["acceleration"] = valueAcceleration;
+        apiPath["velocityLimit"] = valueVelocityLimit;
+    
+    
         // Trying to open the connection
         /* try { 
             //Open your Phidgets and wait for attachment
@@ -67,14 +83,14 @@ var initPBController = async(socketInstance, positionCurrent, positionTarget, ru
              
         //Do stuff with your Phidgets here or in your event handlers.
         /* 
-            doStuffTryCatch(motorPositionController.setKp(ControllerValuesApi.thL1_2["setKp"]), "setKp", socketInstance);
-            doStuffTryCatch(motorPositionController.setKi(ControllerValuesApi.thL1_2["setKi"]), "setKi", socketInstance); 
-            doStuffTryCatch(motorPositionController.setKd(ControllerValuesApi.thL1_2["setKd"]), "setKd", socketInstance);
-            doStuffTryCatch(motorPositionController.setDeadBand(ControllerValuesApi.thL1_2["setDeadBand"]), "setDeadBand", socketInstance)
-            doStuffTryCatch(motorPositionController.setAcceleration(ControllerValuesApi.thL1_2["setAcceleration"]), "setAcceleration", socketInstance)
-            doStuffTryCatch(motorPositionController.setVelocityLimit(ControllerValuesApi.thL1_2["setVelocityLimit"]), "setTargetPosition", socketInstance)
-            doStuffTryCatch(motorPositionController.setTargetPosition(positionTarget), "setTargetPosition", socketInstance)
-            doStuffTryCatch(motorPositionController.setEngaged(runMotor), "setEngaged", socketInstance)
+            doStuffTryCatch(motorPositionController.setKp(motorControllingValuesApi.thL1_2["setKp"]), "setKp", socketInstance);
+            doStuffTryCatch(motorPositionController.setKi(motorControllingValuesApi.thL1_2["setKi"]), "setKi", socketInstance); 
+            doStuffTryCatch(motorPositionController.setKd(motorControllingValuesApi.thL1_2["setKd"]), "setKd", socketInstance);
+            doStuffTryCatch(motorPositionController.setDeadBand(motorControllingValuesApi.thL1_2["setDeadBand"]), "setDeadBand", socketInstance);
+            doStuffTryCatch(motorPositionController.setAcceleration(motorControllingValuesApi.thL1_2["setAcceleration"]), "setAcceleration", socketInstance);
+            doStuffTryCatch(motorPositionController.setVelocityLimit(motorControllingValuesApi.thL1_2["setVelocityLimit"]), "setTargetPosition", socketInstance);
+            doStuffTryCatch(motorPositionController.setTargetPosition(positionTarget), "setTargetPosition", socketInstance);
+            doStuffTryCatch(motorPositionController.setEngaged(runMotor), "setEngaged", socketInstance);
         */
         
 
