@@ -4,9 +4,9 @@
 import CenterLeversInstances from'../CenterLevers/CenterLeversInstances.js';
 import ApiToBeSend from"../../../../API/ApiToSend.js";
 
-import motorControllingValuesApi from'../../../../API/Phidgets/MotorControllingValuesApi.js';
-import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/MotorControllingEventsApi.js';
-import PhidgetsConApi from'../../../../API/Phidgets/PhidgetsBoardsConApi.js';
+import motorControllingValuesApi from'../../../../API/Phidgets/Phidgets_MotorControllingValuesApi.js';
+import MotorControllerEventsTh1_2Api from'../../../../API/Phidgets/Phidgets_MotorControllingEventsApi.js';
+import PhidgetsConApi from'../Phidgets_ControllerBoardsApi.js';
 import boardControllValues from"../../PhidgetsControl/BoardControllValues.js";
 
 //import PhidgetServerConHandler from"../../../ConnectToPhidgetServer.js";
@@ -32,13 +32,15 @@ var initPBController = async(socketInstance, positionCurrent, positionTarget, ru
         MotorControllerEventsTh1_2Api["onError"](motorPositionController);
 
     // Set the API for the controller
-        var apiPath = PhidgetsConApi.pBController;
-        apiPath["isConnected"] = true;
-        apiPath["conMess"] = "Connect";
-        apiPath["intoDevice"] = "SBC4";
-        apiPath["deviceSerialNr"] = deviceSerialNr;
-        apiPath["deviceHubPort"] = deviceHubPort;
-        apiPath["deviceChannel"] = deviceChannel;
+        var apiPathConInfo = PhidgetsConApi.conInfo["pBController"];
+        var apiPathBoardsValues = PhidgetsConApi.boardsValues["pBController"];
+        apiPathConInfo["isConnected"] = true;
+        apiPathConInfo["conMess"] = "Connect";
+        apiPathConInfo["intoDevice"] = "SBC4";
+        apiPathConInfo["deviceSerialNr"] = deviceSerialNr;
+        apiPathConInfo["deviceHubPort"] = deviceHubPort;
+        apiPathConInfo["deviceChannel"] = deviceChannel;
+        apiPathBoardsValues["deviceChannel"] = deviceChannel;
 
         const valueKp = motorControllingValuesApi.thL1_2["setKp"];
         const valueKi = motorControllingValuesApi.thL1_2["setKi"];
@@ -48,12 +50,12 @@ var initPBController = async(socketInstance, positionCurrent, positionTarget, ru
         const valueAcceleration = motorControllingValuesApi.thL1_2["setAcceleration"]
         const valueVelocityLimit = motorControllingValuesApi.thL1_2["setVelocityLimit"];           
 
-        apiPath["kp"] = valueKp;
-        apiPath["ki"] = valueKi;
-        apiPath["kd"] = valueKd;
-        apiPath["deadBand"] = valueDeadBand;
-        apiPath["acceleration"] = valueAcceleration;
-        apiPath["velocityLimit"] = valueVelocityLimit;
+        apiPathConInfo["kp"] = valueKp;
+        apiPathConInfo["ki"] = valueKi;
+        apiPathConInfo["kd"] = valueKd;
+        apiPathConInfo["deadBand"] = valueDeadBand;
+        apiPathConInfo["acceleration"] = valueAcceleration;
+        apiPathConInfo["velocityLimit"] = valueVelocityLimit;
     
     
         // Trying to open the connection

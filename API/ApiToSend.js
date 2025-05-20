@@ -1,5 +1,5 @@
 // ConnectioAPIs to be sent for frontend
-import PhidgetsBoardsConApi from"./Phidgets/PhidgetsBoardsConApi.js";
+import PhidgetsBoardsConApi from"../Functions/Phidgets/PhidgetsControl/Phidgets_ControllerBoardsApi.js";
 import MtuConApi from"./MtuConApi.js";
 
 let ApiToBeSend = {
